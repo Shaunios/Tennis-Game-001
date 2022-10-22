@@ -1,0 +1,63 @@
+<html>
+        <head>
+
+        </head>
+<body>
+        <hl>Tennis Game</hl>
+        <p></p>
+        <hr />
+        <canvas id="gameCanvas" width="600" height="800"></canvas>
+        <hr />    
+        
+        <script>
+                var canvas;
+                var canvasContext;
+                var ballx,bally;
+                var vx = 6, vy = 6;
+                const PADDLE_WIDTH = 80;
+                const PADDLE_HEIGHT = 16;    
+                const FPS = 30;
+                function colorRect (x , y , w, h, color='white'){
+                        canvasContext.fillStyle = color;
+                        canvasContext.fillRect(x , y, w, h);
+                }
+                function drawNet() {
+                        colorRect(0, canvas.height/2-1,canvas.width, 2);        
+                }
+                function drawPaddle(x,y){
+                        colorRect(x,y,PADDLE_WIDTH,PADDLE_HEIGHT,'blue')
+                }
+                function drawEverything () {
+                        colorRect(0,0,canvas.width, canvas.height,'#9999AA');
+                        // draw the net
+                        drawNet();
+                        // Draw player paddle
+                        drawPaddle((canvas.width-PADDLE_WIDTH)/2,0);
+                        // draw computer paddle
+                        drawPaddle((canvas.width-PADDLE_WIDTH)/2, canvas.height-PADDLE_HEIGHT);
+                        colorRect(ballx,bally, 25, 25, 'red');
+                }        
+                function resetBall () {
+                        ballx = canvas.width/2;
+                        bally = canvas.height/2;     
+                }
+                function moveEverything () {
+                        ballx += vx;
+                        bally += vy
+                        if (ballx > canvas.width){ ballx = 0;}
+                        if (bally > canvas.height){ bally = 0;}
+                }
+                window.onload = () => {
+                console.log("hello,Earth");
+                console.log("hello,World!");
+                canvas = document.getElementById("gameCanvas");
+                canvasContext = canvas.getContext('2d');
+                resetBall();
+                setInterval(() => {
+                        drawEverything();
+                        moveEverything();              
+                }, 1000/FPS);
+        } 
+        </script>
+</body>
+</html>
